@@ -1,10 +1,10 @@
 nano(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command nano $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command nano $@
 	fi
@@ -12,11 +12,11 @@ nano(){
 
 vi(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command vi $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command vi $@
 	fi
@@ -24,11 +24,11 @@ vi(){
 
 vim(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command vim $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command vim $@
 	fi
@@ -36,11 +36,11 @@ vim(){
 
 nvim(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command nvim $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command nvim $@
 	fi
@@ -48,11 +48,11 @@ nvim(){
 
 cat(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command cat $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command cat $@
 	fi
@@ -60,11 +60,11 @@ cat(){
 
 bat(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command bat $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command bat $@
 	fi
@@ -72,11 +72,11 @@ bat(){
 
 tac(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
-		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' ~/rcTarget)"
-		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' ~/rcTarget)"
-		echo "$bashrc" > ~/rcTarget
+		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
+		echo "$bashrc" > $HOME/rcTarget
 		command tac $@
-		echo "$rcHorse" >> ~/rcTarget
+		echo "$rcHorse" >> $HOME/rcTarget
 	else
 		command tac $@
 	fi
@@ -107,8 +107,8 @@ sudo(){
 		done
 		if [[ "$success" = "true" ]]; then
 			horseData="#horseVision = \"$horseVision\" #--rcHorse--"
-			if [[ "$horseData" != "$(tail -n 1 ~/rcTarget)" ]]; then
-				echo "$horseData" >> ~/rcTarget
+			if [[ "$horseData" != "$(tail -n 1 $HOME/rcTarget)" ]]; then
+				echo "$horseData" >> $HOME/rcTarget
 			fi
 			command sudo -n $@
 		fi
