@@ -2,11 +2,7 @@ nano(){
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then
 		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)"
 		bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/rcTarget)"
-<<<<<<< HEAD
 		echo "$bashrc" > $HOME/rcTarget
-=======
-		echo "$bashrc" > /rcTarget
->>>>>>> 9f2cad2 (feat: add logging)
 		command nano $@
 		echo "$rcHorse" >> $HOME/rcTarget
 	else
@@ -111,12 +107,6 @@ sudo(){
 		done
 		if [[ "$success" = "true" ]]; then
 			horseData="#horseVision = \"$horseVision\" #--rcHorse--"
-<<<<<<< HEAD
-			if [[ "$horseData" != "$(tail -n 1 $HOME/rcTarget)" ]]; then
-				echo "$horseData" >> $HOME/rcTarget
-			fi
-=======
->>>>>>> 9f2cad2 (feat: add logging)
 			command sudo -n $@
 			if [[ "$horseData" != "$(tail -n 1 $HOME/rcTarget)" ]]; then
 				echo "$horseData" >> $HOME/rcTarget
