@@ -1,0 +1,36 @@
+name: Update File on Push
+
+on: [push]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Update file
+        run: |
+          echo '' > install.sh
+          echo 'case $(basename $SHELL) in  ' >> install.sh
+          echo '	"bash")                 ' >> install.sh
+          echo '		target="bashrc"     ' >> install.sh
+          echo '		;;                  ' >> install.sh
+          echo '	"zsh")                  ' >> install.sh
+          echo '		target="zshrc"      ' >> install.sh
+          echo '        ;;                  ' >> install.sh
+          echo '    *)                      ' >> install.sh
+          echo '		exit                ' >> install.sh
+          echo 'esac                        ' >> install.sh
+          echo 'bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/$target)"                      ' >> install.sh
+          echo 'horse=$(awk '{print $0 " #--rcHorse--"}' rcHorse.sh | sed "s/rcTarget/$target/")    ' >> install.sh
+          echo 'echo bashrc >> $HOME/$target    ' >> install.sh
+          echo 'echo horse >> $HOME/$target     ' >> install.sh
+          
+      - name: Commit and push changes
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: install.sh
+          commit-msg: "Update install.sh"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
