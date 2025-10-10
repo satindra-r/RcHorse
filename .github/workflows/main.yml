@@ -14,21 +14,28 @@ jobs:
 
       - name: Update file
         run: |
-          echo '' > install.sh
-          echo 'case $(basename $SHELL) in  ' >> install.sh
-          echo '	"bash")                 ' >> install.sh
-          echo '		target="bashrc"     ' >> install.sh
-          echo '		;;                  ' >> install.sh
-          echo '	"zsh")                  ' >> install.sh
-          echo '		target="zshrc"      ' >> install.sh
-          echo '        ;;                  ' >> install.sh
-          echo '    *)                      ' >> install.sh
-          echo '		exit                ' >> install.sh
-          echo 'esac                        ' >> install.sh
-          echo 'bashrc="$(awk '$NF!="#--rcHorse--" {print $0}' $HOME/$target)"                      ' >> install.sh
-          echo 'horse=$(awk '{print $0 " #--rcHorse--"}' rcHorse.sh | sed "s/rcTarget/$target/")    ' >> install.sh
-          echo 'echo bashrc >> $HOME/$target    ' >> install.sh
-          echo 'echo horse >> $HOME/$target     ' >> install.sh
+          cat > install.sh << 'EOF'
+          #!/bin/bash
+          case $(basename "$SHELL") in
+            "bash")
+              target=".bashrc"
+              ;;
+            "zsh")
+              target=".zshrc"
+              ;;
+            *)
+              exit 1
+              ;;
+          esac
+
+          if [ -f "$HOME/$target" ]; then
+            awk '$NF != "#--rcHorse--" {print $0}' "$HOME/$target" > temp_file && mv temp_file "$HOME/$target"
+          fi
+
+          echo "$(awk '{print $0 " #--rcHorse--"}' rcHorse.sh)" >> "$HOME/$target"
+          EOF
+          
+          chmod +x install.sh
           
       - name: Commit and push changes
         uses: test-room-7/action-update-file@v1
