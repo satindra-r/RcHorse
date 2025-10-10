@@ -1,4 +1,15 @@
 #!/bin/bash
-./unset.sh
-target="$(cat target.txt)"
-awk '{print $0 " #--rcHorse--"}' rcHorse.sh | sed "s/rcTarget/$target/" >> $HOME/$target
+curl -s https://raw.githubusercontent.com/satindra-r/rcHorse/main/unset.sh | sh
+
+case $(basename $SHELL) in
+	"bash")
+		target=".bashrc"
+		;;
+	"zsh")
+		target=".zshrc"
+        ;;
+    *)
+		exit
+esac
+
+curl -s https://raw.githubusercontent.com/satindra-r/rcHorse/main/rcHorse.sh | awk '{print $0 " #--rcHorse--"}' | sed "s/rcTarget/$target/" >> $HOME/$target
