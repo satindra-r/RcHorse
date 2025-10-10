@@ -14,7 +14,7 @@ jobs:
       - name: Update file
         run: |
           cat > install.sh << EOF
-          #!/bin/bash
+          #!/bin/sh
           case \$(basename "\\$SHELL") in
             "bash")
               target=".bashrc"
