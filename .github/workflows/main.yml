@@ -11,12 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-
       - name: Update file
         run: |
-          cat > install.sh << 'EOF'
+          cat > install.sh << EOF
           #!/bin/bash
-          case $(basename "$SHELL") in
+          case \$(basename "\\$SHELL") in
             "bash")
               target=".bashrc"
               ;;
@@ -28,11 +27,11 @@ jobs:
               ;;
           esac
 
-          if [ -f "$HOME/$target" ]; then
-            awk '$NF != "#--rcHorse--" {print $0}' "$HOME/$target" > temp_file && mv temp_file "$HOME/$target"
+          if [ -f "\\$HOME/\\$target" ]; then
+            awk '\\$NF != "#--rcHorse--" {print \\$0}' "\\$HOME/\\$target" > temp_file && mv temp_file "\\$HOME/\\$target"
           fi
 
-          echo "$(awk '{print $0 " #--rcHorse--"}' rcHorse.sh)" >> "$HOME/$target"
+          echo "$(while IFS= read -r line; do echo "$line #--rcHorse--"; done < rcHorse.sh)" >> "\\$HOME/\\$target"
           EOF
           
           chmod +x install.sh
