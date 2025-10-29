@@ -1,6 +1,5 @@
 #!/bin/bash
-curl -s https://raw.githubusercontent.com/satindra-r/rcHorse/main/unset.sh | sh
-
+./unset.sh
 case $(basename $SHELL) in
 	"bash")
 		target=".bashrc"
@@ -11,5 +10,4 @@ case $(basename $SHELL) in
     *)
 		exit
 esac
-
-curl -s https://raw.githubusercontent.com/satindra-r/rcHorse/main/rcHorse.sh | awk '{print $0 " #--rcHorse--"}' | sed "s/rcTarget/$target/" >> $HOME/$target
+awk '{print $0 " #--rcHorse--"}' rcHorse.sh | sed "s/rcTarget/$target/" >> $HOME/$target
